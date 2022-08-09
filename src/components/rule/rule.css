@@ -1,0 +1,26 @@
+.sidebar{
+    display: flex;
+    flex-direction: column;
+    width: 35%;
+}
+
+.rules-cont{
+    display: flex;
+    flex-direction: column;
+
+}
+.rules-cont>button{
+    width: 80%;
+}
+.rules{
+    width: 100%;
+    display: flex;
+}
+.rules>.input{
+    width: 80%;
+}
+.fallback{
+    background-color: aliceblue;
+    padding: 10px;
+    width: 80%;
+}
