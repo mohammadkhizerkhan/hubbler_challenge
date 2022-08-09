@@ -4,16 +4,16 @@ import "./rule.css"
 function AddRule() {
     return (
         <div className='sidebar'>
-            <h3>
-                {MdNavigateBefore}
-                 Back to Stages
-            </h3>
+           <header className='flex flex-align-center'>
+            <MdNavigateBefore/>
+            <span>Back to Stages</span>
+           </header>
             <div className="rules-cont">
                 <p>RULES 2</p>
-                <div className="rules">
+                <div className="rules flex">
                     <input type="text" className='input'/>
-                    <MdContentCopy/>
-                    <MdOutlineDeleteForever/>
+                    <MdContentCopy className='copy-icon'/>
+                    <MdOutlineDeleteForever className='delete-icon'/>
                 </div>
                 <div className='fallback'>
                     <h3>Fall back rule</h3>
