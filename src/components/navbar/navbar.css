@@ -9,8 +9,17 @@
 .navigations{
     gap: 1rem;
 }
-.navigations:nth-child(1){
-    margin: 1rem;
+.nav-item:nth-child(1){
+    margin-left: 2rem;
+}
+.nav-item{
+    text-align: center;
+}
+.nav-item>h4{
+    font-weight: 500;
+}
+.nav-item>p{
+    font-size: 13px;
 }
 
 .img-responsive {
@@ -20,4 +29,9 @@
   }
 .logo{
     height: auto;
+}
+
+.time{
+    font-weight: 500;
+    margin-right: 1rem;
 }

@@ -35,6 +35,10 @@ button{
   cursor: pointer;
 }
 
+.bold{
+  font-weight: bold;
+}
+
 .flex{
   display: flex;
 }
@@ -81,7 +85,7 @@ button{
   height: 2.5rem;
   width: fit-content;
   padding: 10px;
-  background-color: inherit;
+  background-color: #f1f0f0;
   margin-right: 10px;
 }
 
