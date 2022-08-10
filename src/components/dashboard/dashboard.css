@@ -21,8 +21,14 @@
     width: 50%;
 }
 
-.btn-name{
+.btn-label{
     margin:2rem 0 3rem 0;
+}
+
+.btn-name{
+    width: fit-content;
+    background-color: #F6F5F6;
+    padding: 10px;
 }
 
 .actions-cont{

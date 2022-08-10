@@ -57,7 +57,7 @@ function Navbar() {
           App saved on {addZero(updateTime.getDate())}/
           {addZero(updateTime.getMonth() + 1)}/{updateTime.getFullYear()}{" "}
           {updatedHours(updateTime.getHours())}:{addZero(updateTime.getMinutes())}
-          {updateTime.getHours()>12?"PM":"AM"}
+          {getMeridian(updateTime.getHours())}
         </p>
         <button
           className="primary-btn"

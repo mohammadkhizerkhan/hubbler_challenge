@@ -31,8 +31,9 @@ code {
   font-weight: bold;
 }
 
-button{
+button:hover{
   cursor: pointer;
+  opacity: 0.9;
 }
 
 .bold{

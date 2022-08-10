@@ -16,12 +16,12 @@
 .rules{
     width: 100%;
     justify-content: space-between;
+    margin-top: 1.5rem;
     align-items: center;
 }
-.rules>div{
+.rule-name{
     background-color: white;
     padding: 10px;
-    margin-top: 1.5rem;
     width: 80%;
 }
 .fallback{

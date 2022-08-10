@@ -2,15 +2,21 @@ import React from "react";
 import { AddRule } from "../rule/AddRule";
 import { MdDeleteForever, MdPlayCircleOutline } from "react-icons/md";
 import "./dashboard.css";
+import { useData } from "../../context";
 function Dashboard() {
+  const {isEdit}=useData();
   return (
     <div className="dashboard flex">
       <AddRule />
       <div className="main-rule">
         <h3>Default Rule</h3>
-        <label htmlFor="" className="btn-name flex-column">
-          <span>Button Name</span>
-          <input type="text" className="input" />
+        <label htmlFor="" className="btn-label flex-column">
+          <span className="bold">Button Name</span>
+          {
+            isEdit?(<input type="text" className="input" value="Create PO"/>):(
+              <div className='btn-name'>Create PO</div>
+            )
+          }
         </label>
         <label htmlFor="">
           <select name="" id="" className="select">
