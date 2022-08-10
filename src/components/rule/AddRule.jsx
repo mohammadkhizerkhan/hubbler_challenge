@@ -7,7 +7,7 @@ import {
 import { useData } from "../../context";
 import "./rule.css";
 function AddRule() {
-  const { data, setData } = useData();
+  const { isEdit,data, setData } = useData();
   console.log(data.rules);
   return (
     <div className="sidebar">
@@ -20,7 +20,7 @@ function AddRule() {
         {data.rules.map((rule) => {
           return (
             <div className="rules flex flex-center" key={rule.id}>
-              <div className="rule-name">{rule.name}</div>
+              <input className="rule-name" readOnly={!isEdit} value={rule.name}/>
               <MdOutlineDeleteForever className="delete-icon" />
             </div>
           );
