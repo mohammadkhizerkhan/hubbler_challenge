@@ -1,0 +1,1 @@
+export {useData,DataContextProvider} from "./DataContext"

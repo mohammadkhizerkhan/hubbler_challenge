@@ -85,8 +85,13 @@ button{
   height: 2.5rem;
   width: fit-content;
   padding: 10px;
+  border: none;
   background-color: #f1f0f0;
   margin-right: 10px;
+}
+
+.option{
+  padding: 10px;
 }
 
 .delete-btn{

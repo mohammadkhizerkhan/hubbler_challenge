@@ -14,28 +14,28 @@ function Dashboard() {
         </label>
         <label htmlFor="">
           <select name="" id="" className="select">
-            <option value="if All" selected>
+            <option className="option" value="if All" selected>
               if All
             </option>
-            <option value="if Any">if Any</option>
+            <option className="option" value="if Any">if Any</option>
           </select>
           of the following conditions are met:
         </label>
         <div className="conditions">
           <label htmlFor="condition-1">
             <select name="" id="condition-1" className="select">
-              <option value="Text" selected>
+              <option className="option" value="Text" selected>
                 Text
               </option>
-              <option value="Number">Number</option>
+              <option className="option" value="Number">Number</option>
             </select>
           </label>
           <label htmlFor="condition-2">
             <select name="" id="condition-2" className="select">
-              <option value="contains" selected>
+              <option className="option" value="contains" selected>
                 Contains
               </option>
-              <option value="not cont">Not Contains</option>
+              <option className="option" value="not cont">Not Contains</option>
             </select>
           </label>
           <label htmlFor="">

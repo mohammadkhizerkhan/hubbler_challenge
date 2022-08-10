@@ -2,8 +2,31 @@ import React from "react";
 import { logo } from "../../assests";
 import "./navbar.css";
 import { MdNavigateNext } from "react-icons/md";
+import { useData } from "../../context";
+import { useState } from "react";
 
 function Navbar() {
+  const { isEdit, setIsEdit } = useData();
+  const [updateTime, setUpdateTime] = useState(new Date());
+
+  const editHandler = () => {
+    setIsEdit(true);
+  };
+  const saveHandler = () => {
+    setIsEdit(false);
+    console.log("current", new Date());
+    setUpdateTime(new Date());
+  };
+  const addZero = (num) => {
+    return num < 10 ? `0${num}` : num;
+  };
+  const getMeridian=(num)=>{
+    return num>12?"PM":"AM"
+  }
+  const updatedHours=(num)=>{
+    let hour=num>12?num-12:num;
+    return `${addZero(hour)}`
+  }
   return (
     <nav className="navbar-cont ">
       <div className="flex ">
@@ -30,9 +53,17 @@ function Navbar() {
         </div>
       </div>
       <div className="flex flex-center">
-        <p className="time">App saved on 27 jul 2017 4:23am</p>
-        <button className="primary-btn">
-            DONE
+        <p className="time">
+          App saved on {addZero(updateTime.getDate())}/
+          {addZero(updateTime.getMonth() + 1)}/{updateTime.getFullYear()}{" "}
+          {updatedHours(updateTime.getHours())}:{addZero(updateTime.getMinutes())}
+          {updateTime.getHours()>12?"PM":"AM"}
+        </p>
+        <button
+          className="primary-btn"
+          onClick={() => (isEdit ? saveHandler() : editHandler())}
+        >
+          {isEdit ? "SAVE" : "EDIT"}
         </button>
       </div>
     </nav>
