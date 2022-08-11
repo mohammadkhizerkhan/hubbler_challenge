@@ -1,14 +1,15 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { MdDeleteForever, MdPlayCircleOutline } from "react-icons/md";
 import "./dashboard.css";
 import { useData } from "../../context";
 import { ACTIONS } from "../../Action";
-function Dashboard({id}) {
+function Dashboard({ id }) {
   const { isEdit, data, dataDispatch } = useData();
-  const [selectedRule,setSelectedRule]=useState({})
+  const [selectedRule, setSelectedRule] = useState({});
   useEffect(() => {
-    setSelectedRule(data.find((item) => item.id === id))
-  }, [data,id])
+    setSelectedRule(data.find((item) => item.id === id));
+  }, [data, id]);
+  console.log(selectedRule.conditions);
   return (
     <div className="main-rule">
       <h3>{selectedRule.name}</h3>
@@ -22,7 +23,7 @@ function Dashboard({id}) {
             dataDispatch({
               type: ACTIONS.CHANGE_RULE_NAME,
               payload: {
-                id:id,
+                id: id,
                 text: e.target.value,
               },
             })
@@ -41,39 +42,61 @@ function Dashboard({id}) {
         </select>
         of the following conditions are met:
       </label>
-      <div className="conditions">
-        <label htmlFor="condition-1">
-          <select name="" id="condition-1" className="select">
-            <option className="option" value="Text" selected>
-              Text
-            </option>
-            <option className="option" value="Number">
-              Number
-            </option>
-          </select>
-        </label>
-        <label htmlFor="condition-2">
-          <select name="" id="condition-2" className="select">
-            <option className="option" value="contains" selected>
-              Contains
-            </option>
-            <option className="option" value="not cont">
-              Not Contains
-            </option>
-          </select>
-        </label>
-        <label htmlFor="">
-          <input
-            type="text"
-            className="input condition-input"
-            placeholder="Type to search & add"
-          />
-        </label>
-        <button className="delete-btn icon-btn">
-          <MdDeleteForever />
-        </button>
-      </div>
-      <button className="primary-btn">Add New Condition</button>
+      {selectedRule?.conditions?.map((item) => {
+        return (
+          <div className="conditions">
+            <label htmlFor="condition-1">
+              <select name="" id="condition-1" className="select">
+                {item.type.map((type) => (
+                  <option className="option" value="Text">
+                    {type}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label htmlFor="condition-2">
+              <select name="" id="condition-2" className="select">
+                {item.contains.map((contain) => (
+                  <option className="option" value="contains" selected>
+                    {contain}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label htmlFor="">
+              <input
+                type="text"
+                className="input condition-input"
+                placeholder="Type to search & add"
+              />
+            </label>
+            <button
+              className="delete-btn icon-btn"
+              onClick={() =>
+                dataDispatch({
+                  type: ACTIONS.DELETE_CONDITION,
+                  payload:{
+                    ruleId:id,
+                    conditionId:item.id
+                  },
+                })
+              }
+            >
+              <MdDeleteForever />
+            </button>
+          </div>
+        );
+      })}
+      <button
+        className="primary-btn"
+        onClick={() =>
+          data.length >= 8
+            ? "call toast here"
+            : dataDispatch({ type: ACTIONS.ADD_NEW_CONDITION, payload: id })
+        }
+      >
+        Add New Condition
+      </button>
       <div className="divider-line"></div>
       <div className="action">
         <p>Perform the following action:</p>
