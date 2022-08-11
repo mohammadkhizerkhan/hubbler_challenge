@@ -1,11 +1,11 @@
 import './App.css';
-import { Dashboard, Navbar } from './components';
+import { AddRule, Dashboard, Navbar } from './components';
 
 function App() {
   return (
     <div className="App">
       <Navbar/>
-      <Dashboard/>
+      <AddRule/>
     </div>
   );
 }

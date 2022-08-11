@@ -1,43 +1,51 @@
-import { useState,useContext,createContext } from "react";
-
+import { useState,useContext,createContext,useReducer } from "react";
+import {DataReducer} from "./DataReducer"
 const initialState={}
 
 const DataContext=createContext(initialState)
 
 const DataContextProvider=({children})=>{
     const [isEdit, setIsEdit] = useState(false);
-    const [data,setData]=useState({
-        rules:[{
+      const initialState=[{
             id:1,
-            name:"Create P0",
-            conditions:{
+            name:"rule 1",
+            conditions:[{
                 type:["Text","Number"],
                 contains:["Contains","Not Contains"]
-            },
-            actions:["start new app","edit the app","stop the app"]
+            },{
+                type:["Text","Number"],
+                contains:["Contains","Not Contains"]
+            }],
+            actions:[{name:"start new app"},{name:"edit the app"},{name:"stop the app"},{name:"reset the app"}]
         },
         {
             id:2,
-            name:"Create P1",
-            conditions:{
+            name:"rule 2",
+            conditions:[{
                 type:["Text","Number"],
                 contains:["Contains","Not Contains"]
-            },
-            actions:["start new app","edit the app","stop the app"]
+            },{
+                type:["Text","Number"],
+                contains:["Contains","Not Contains"]
+            }],
+            actions:[{name:"start new app"},{name:"edit the app"},{name:"stop the app"},{name:"reset the app"}]
         },
         {
             id:3,
-            name:"Create P2",
-            conditions:{
+            name:"rule 3",
+            conditions:[{
                 type:["Text","Number"],
                 contains:["Contains","Not Contains"]
-            },
-            actions:["start new app","edit the app","stop the app"]
+            },{
+                type:["Text","Number"],
+                contains:["Contains","Not Contains"]
+            }],
+            actions:[{name:"start new app"},{name:"edit the app"},{name:"stop the app"},{name:"reset the app"}]
         }
     ]
-    })
+    const [data,dataDispatch]=useReducer(DataReducer,initialState)
     return (
-        <DataContext.Provider value={{isEdit,setIsEdit,data,setData}}>
+        <DataContext.Provider value={{isEdit,setIsEdit,data,dataDispatch}}>
             {children}
         </DataContext.Provider>
     )

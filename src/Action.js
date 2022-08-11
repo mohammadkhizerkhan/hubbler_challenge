@@ -1,0 +1,4 @@
+export const ACTIONS={
+    CHANGE_RULE_NAME:"CHANGE_RULE_NAME",
+    TESTING:"TESTING"
+}
