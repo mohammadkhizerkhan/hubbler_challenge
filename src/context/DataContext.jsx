@@ -11,7 +11,7 @@ const DataContextProvider=({children})=>{
             id:uuidv4(),
             name:"rule 1",
             conditions:[{
-                id:21,
+                id:uuidv4(),
                 type:["Text","Number"],
                 contains:["Contains","Not Contains"]
             }],
@@ -21,7 +21,7 @@ const DataContextProvider=({children})=>{
             id:uuidv4(),
             name:"rule 2",
             conditions:[{
-                id:22,
+                id:uuidv4(),
                 type:["Text","Number"],
                 contains:["Contains","Not Contains"]
             }],
@@ -31,7 +31,7 @@ const DataContextProvider=({children})=>{
             id:uuidv4(),
             name:"rule 3",
             conditions:[{
-                id:23,
+                id:uuidv4(),
                 type:["Text","Number"],
                 contains:["Contains","Not Contains"]
             }],
