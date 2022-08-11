@@ -3,6 +3,7 @@ import { useState, useRef } from "react";
 import { MdNavigateBefore, MdOutlineDeleteForever } from "react-icons/md";
 import { ACTIONS } from "../../Action";
 import { useData } from "../../context";
+import { CallToast } from "../../services";
 import { Dashboard } from "../index";
 import InputRule from "./InputRule";
 import "./rule.css";
@@ -54,7 +55,7 @@ function AddRule() {
             disabled={!isEdit}
             onClick={() =>
               data.length >= 5
-                ? "call toast here"
+                ? CallToast("error","You Cannot add more than 5 rules")
                 : dataDispatch({ type: ACTIONS.ADD_NEW_RULE })
             }
           >

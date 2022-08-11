@@ -75,11 +75,29 @@ export const DataReducer = (state, action) => {
         },
       ];
     }
-    case ACTIONS.TESTING: {
-      console.log(action.payload);
+    case ACTIONS.DELETE_ACTION:{
+        console.log(action.payload.actionId)
+        return [
+            ...state.map((item)=>{
+                if(item.id===action.payload.ruleId){
+                    return {
+                        ...item,
+                        actions:item.actions.filter(action=>action.id!==action.payload.actionId)
+                    }
+                }
+                else {
+                    return item
+                }
+            })
+        ]
     }
+    // case ACTIONS.TESTING: {
+    //   console.log(action.payload);
+    // }
     default: {
       return state;
     }
   }
 };
+
+

@@ -3,15 +3,16 @@ import { MdDeleteForever, MdPlayCircleOutline } from "react-icons/md";
 import "./dashboard.css";
 import { useData } from "../../context";
 import { ACTIONS } from "../../Action";
+import { CallToast } from "../../services";
 function Dashboard({ id }) {
   const { isEdit, data, dataDispatch } = useData();
   const [selectedRule, setSelectedRule] = useState({});
-  const [actionCount,setActionCount]=useState(1)
+  const [actionCount, setActionCount] = useState(1);
   useEffect(() => {
     setSelectedRule(data.find((item) => item.id === id));
   }, [data, id]);
   console.log(selectedRule.actions);
-  console.log(actionCount)
+  console.log(actionCount);
   return (
     <div className="main-rule">
       <h3>{selectedRule.name}</h3>
@@ -94,8 +95,8 @@ function Dashboard({ id }) {
         className="primary-btn"
         disabled={!isEdit}
         onClick={() =>
-          data.length >= 8
-            ? "call toast here"
+          selectedRule?.conditions?.length >= 8
+            ? CallToast("error", "You Cannot add more than 8 conditions")
             : dataDispatch({ type: ACTIONS.ADD_NEW_CONDITION, payload: id })
         }
       >
@@ -105,23 +106,44 @@ function Dashboard({ id }) {
       <div className="action">
         <p>Perform the following action:</p>
         <ul className="actions-cont">
-          {selectedRule?.actions?.slice(0,actionCount).map((item) => (
-            <li className="action-item" key={item.id}>
+          {selectedRule?.actions?.map((action) => (
+            <li className="action-item" key={action.id}>
               <button className="action-btn icon-btn">
                 <MdPlayCircleOutline />
-                <span>{item.name}</span>
+                <span>{action.name}</span>
               </button>
-              <button className="delete-btn icon-btn" disabled={!isEdit}>
+              <button
+                className="delete-btn icon-btn"
+                disabled={!isEdit}
+                onClick={() =>
+                  dataDispatch({
+                    type: ACTIONS.DELETE_ACTION,
+                    payload: {
+                      ruleId: id,
+                      actionId: action.id,
+                    },
+                  })
+                }
+              >
                 <MdDeleteForever />
               </button>
             </li>
           ))}
         </ul>
       </div>
-      <div className="divider-line" ></div>
-      <button disabled={!isEdit} className="primary-btn" onClick={()=>setActionCount(prev=>prev+1)}>Add Another Action</button>
+      <div className="divider-line"></div>
+      <button
+        disabled={!isEdit}
+        className="primary-btn"
+        onClick={() =>
+          actionCount >= 5
+            ? CallToast("error", "You Cannot add more than 5 actions")
+            : setActionCount((prev) => prev + 1)
+        }
+      >
+        Add Another Action
+      </button>
     </div>
   );
 }
-
 export { Dashboard };
