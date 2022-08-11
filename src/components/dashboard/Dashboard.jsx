@@ -6,10 +6,12 @@ import { ACTIONS } from "../../Action";
 function Dashboard({ id }) {
   const { isEdit, data, dataDispatch } = useData();
   const [selectedRule, setSelectedRule] = useState({});
+  const [actionCount,setActionCount]=useState(1)
   useEffect(() => {
     setSelectedRule(data.find((item) => item.id === id));
   }, [data, id]);
-  console.log(selectedRule.conditions);
+  console.log(selectedRule.actions);
+  console.log(actionCount)
   return (
     <div className="main-rule">
       <h3>{selectedRule.name}</h3>
@@ -44,7 +46,7 @@ function Dashboard({ id }) {
       </label>
       {selectedRule?.conditions?.map((item) => {
         return (
-          <div className="conditions">
+          <div className="conditions" key={item.id}>
             <label htmlFor="condition-1">
               <select name="" id="condition-1" className="select">
                 {item.type.map((type) => (
@@ -57,7 +59,7 @@ function Dashboard({ id }) {
             <label htmlFor="condition-2">
               <select name="" id="condition-2" className="select">
                 {item.contains.map((contain) => (
-                  <option className="option" value="contains" selected>
+                  <option className="option" value="contains">
                     {contain}
                   </option>
                 ))}
@@ -72,12 +74,13 @@ function Dashboard({ id }) {
             </label>
             <button
               className="delete-btn icon-btn"
+              disabled={!isEdit}
               onClick={() =>
                 dataDispatch({
                   type: ACTIONS.DELETE_CONDITION,
-                  payload:{
-                    ruleId:id,
-                    conditionId:item.id
+                  payload: {
+                    ruleId: id,
+                    conditionId: item.id,
                   },
                 })
               }
@@ -89,6 +92,7 @@ function Dashboard({ id }) {
       })}
       <button
         className="primary-btn"
+        disabled={!isEdit}
         onClick={() =>
           data.length >= 8
             ? "call toast here"
@@ -101,19 +105,21 @@ function Dashboard({ id }) {
       <div className="action">
         <p>Perform the following action:</p>
         <ul className="actions-cont">
-          <li className="action-item">
-            <button className="action-btn icon-btn">
-              <MdPlayCircleOutline />
-              <span>START NEW APP</span>
-            </button>
-            <button className="delete-btn icon-btn">
-              <MdDeleteForever />
-            </button>
-          </li>
+          {selectedRule?.actions?.slice(0,actionCount).map((item) => (
+            <li className="action-item" key={item.id}>
+              <button className="action-btn icon-btn">
+                <MdPlayCircleOutline />
+                <span>{item.name}</span>
+              </button>
+              <button className="delete-btn icon-btn" disabled={!isEdit}>
+                <MdDeleteForever />
+              </button>
+            </li>
+          ))}
         </ul>
       </div>
-      <div className="divider-line"></div>
-      <button className="primary-btn">Add Another Action</button>
+      <div className="divider-line" ></div>
+      <button disabled={!isEdit} className="primary-btn" onClick={()=>setActionCount(prev=>prev+1)}>Add Another Action</button>
     </div>
   );
 }

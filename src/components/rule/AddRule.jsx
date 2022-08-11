@@ -10,7 +10,7 @@ function AddRule() {
   const { isEdit, data, dataDispatch } = useData();
   const [selectedRule, setSelectedRule] = useState(data[0].id);
   // const ruleNameRef = useRef(null);
-  // console.log(data);
+  console.log(isEdit);
   return (
     <div className="dashboard flex">
       <div className="sidebar">
@@ -25,12 +25,13 @@ function AddRule() {
               <div className="rules flex flex-center" key={rule.id}>
                 <input
                   className="rule-name"
-                  readOnly={!isEdit}
+                  readOnly
                   value={rule.name}
                   onClick={() => setSelectedRule(rule.id)}
                 />
                 {rule.id === selectedRule || (
                   <button
+                  disabled={!isEdit}
                     className="delete-btn icon-btn"
                     onClick={() =>
                       dataDispatch({
@@ -50,6 +51,7 @@ function AddRule() {
           </div>
           <button
             className="primary-btn"
+            disabled={!isEdit}
             onClick={() =>
               data.length >= 5
                 ? "call toast here"
