@@ -1,17 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { MdDeleteForever, MdPlayCircleOutline } from "react-icons/md";
 import "./dashboard.css";
 import { useData } from "../../context";
 import { ACTIONS } from "../../Action";
 import { CallToast } from "../../services";
 function Dashboard({ id }) {
-  const { isEdit, data, dataDispatch,selectedRule, setSelectedRule ,selectedActions, setSelectedActions } = useData();
-  const [actionCount, setActionCount] = useState(0);
+  const {
+    isEdit,
+    data,
+    dataDispatch,
+    selectedRule,
+    setSelectedRule,
+    selectedActions,
+    setSelectedActions,
+  } = useData();
+  const counterRef = useRef(0);
 
-  useEffect(()=>{
-    setSelectedActions(selectedRule?.actions?.slice(0,actionCount+1))
-  },[actionCount,selectedRule])
+  const addActions = () => {
+    counterRef.current += 1;
+    setSelectedActions([...selectedActions,selectedRule?.actions[counterRef.current-1]]);
+  };
 
+  console.log(counterRef.current)
   useEffect(() => {
     setSelectedRule(data.find((item) => item.id === id));
   }, [data, id]);
@@ -118,14 +128,12 @@ function Dashboard({ id }) {
               <button
                 className="delete-btn icon-btn"
                 disabled={!isEdit}
-                onClick={() =>
-                  {
-                    setActionCount(prev=>prev-1)
-                    setSelectedActions(prev=>{
-                      return prev.filter(act=>act.id!==action.id)
-                    })
-                  }
-                }
+                onClick={() => {
+                  counterRef.current-=1;
+                  setSelectedActions(
+                    selectedActions.filter((item) => item.id !== action.id)
+                  );
+                }}
               >
                 <MdDeleteForever />
               </button>
@@ -138,9 +146,9 @@ function Dashboard({ id }) {
         disabled={!isEdit}
         className="primary-btn"
         onClick={() =>
-          actionCount >= 5
+          counterRef.current >= 5
             ? CallToast("error", "You Cannot add more than 5 actions")
-            : setActionCount((prev) => prev + 1)
+            : addActions()
         }
       >
         Add Another Action
