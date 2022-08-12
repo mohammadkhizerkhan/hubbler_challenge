@@ -67,10 +67,11 @@ export const DataReducer = (state, action) => {
             },
           ],
           actions: [
-            { name: "start new app" },
-            { name: "edit the app" },
-            { name: "stop the app" },
-            { name: "reset the app" },
+            { id: uuidv4(), name: "start new app" },
+            { id: uuidv4(), name: "edit the app" },
+            { id: uuidv4(), name: "stop the app" },
+            { id: uuidv4(), name: "reset the app" },
+            { id: uuidv4(), name: "Amount pay" },
           ],
         },
       ];
@@ -78,18 +79,18 @@ export const DataReducer = (state, action) => {
     case ACTIONS.DELETE_ACTION:{
         console.log(action.payload.actionId)
         return [
-            ...state.map((item)=>{
-                if(item.id===action.payload.ruleId){
-                    return {
-                        ...item,
-                        actions:item.actions.filter(action=>action.id!==action.payload.actionId)
-                    }
-                }
-                else {
-                    return item
-                }
-            })
-        ]
+          ...state.map((item)=>{
+              if(item.id===action.payload.ruleId){
+                  return {
+                      ...item,
+                      actions:item.actions.filter(act=>act.id!==action.payload.actionId)
+                  }
+              }
+              else {
+                  return item
+              }
+          })
+      ]
     }
     // case ACTIONS.TESTING: {
     //   console.log(action.payload);

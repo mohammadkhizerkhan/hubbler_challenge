@@ -5,14 +5,15 @@ import { useData } from "../../context";
 import { ACTIONS } from "../../Action";
 import { CallToast } from "../../services";
 function Dashboard({ id }) {
-  const { isEdit, data, dataDispatch } = useData();
-  const [selectedRule, setSelectedRule] = useState({});
-  const [actionCount, setActionCount] = useState(1);
+  const { isEdit, data, dataDispatch,selectedRule, setSelectedRule ,selectedActions, setSelectedActions } = useData();
+  const [actionCount, setActionCount] = useState(0);
+  useEffect(()=>{
+    setSelectedActions(selectedRule?.actions?.slice(0,actionCount+1))
+  },[actionCount,selectedRule])
   useEffect(() => {
     setSelectedRule(data.find((item) => item.id === id));
   }, [data, id]);
-  console.log(selectedRule.actions);
-  console.log(actionCount);
+
   return (
     <div className="main-rule">
       <h3>{selectedRule.name}</h3>
@@ -106,7 +107,7 @@ function Dashboard({ id }) {
       <div className="action">
         <p>Perform the following action:</p>
         <ul className="actions-cont">
-          {selectedRule?.actions?.map((action) => (
+          {selectedRule?.actions?.slice(0,actionCount+1).map((action) => (
             <li className="action-item" key={action.id}>
               <button className="action-btn icon-btn">
                 <MdPlayCircleOutline />

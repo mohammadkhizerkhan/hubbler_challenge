@@ -64,8 +64,10 @@ const DataContextProvider = ({ children }) => {
     },
   ];
   const [data, dataDispatch] = useReducer(DataReducer, initialState);
+  const [selectedRule, setSelectedRule] = useState({});
+  const [selectedActions, setSelectedActions] = useState([])
   return (
-    <DataContext.Provider value={{ isEdit, setIsEdit, data, dataDispatch }}>
+    <DataContext.Provider value={{ isEdit, setIsEdit, data, dataDispatch,selectedRule, setSelectedRule ,selectedActions, setSelectedActions}}>
       {children}
     </DataContext.Provider>
   );

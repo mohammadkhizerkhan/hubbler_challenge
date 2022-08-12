@@ -6,7 +6,7 @@ import { useData } from "../../context";
 import { useState } from "react";
 
 function Navbar() {
-  const { isEdit, setIsEdit } = useData();
+  const { isEdit, setIsEdit,selectedRule,selectedActions } = useData();
   const [updateTime, setUpdateTime] = useState(new Date());
 
   const editHandler = () => {
@@ -14,8 +14,8 @@ function Navbar() {
   };
   const saveHandler = () => {
     setIsEdit(false);
-    console.log("current", new Date());
     setUpdateTime(new Date());
+    console.log({updatedTime:new Date(),...selectedRule,selectedActions})
   };
   const addZero = (num) => {
     return num < 10 ? `0${num}` : num;
