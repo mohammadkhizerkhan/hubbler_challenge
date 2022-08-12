@@ -7,9 +7,11 @@ import { CallToast } from "../../services";
 function Dashboard({ id }) {
   const { isEdit, data, dataDispatch,selectedRule, setSelectedRule ,selectedActions, setSelectedActions } = useData();
   const [actionCount, setActionCount] = useState(0);
+
   useEffect(()=>{
     setSelectedActions(selectedRule?.actions?.slice(0,actionCount+1))
   },[actionCount,selectedRule])
+
   useEffect(() => {
     setSelectedRule(data.find((item) => item.id === id));
   }, [data, id]);
@@ -107,7 +109,7 @@ function Dashboard({ id }) {
       <div className="action">
         <p>Perform the following action:</p>
         <ul className="actions-cont">
-          {selectedRule?.actions?.slice(0,actionCount+1).map((action) => (
+          {selectedActions?.map((action) => (
             <li className="action-item" key={action.id}>
               <button className="action-btn icon-btn">
                 <MdPlayCircleOutline />
@@ -117,13 +119,12 @@ function Dashboard({ id }) {
                 className="delete-btn icon-btn"
                 disabled={!isEdit}
                 onClick={() =>
-                  dataDispatch({
-                    type: ACTIONS.DELETE_ACTION,
-                    payload: {
-                      ruleId: id,
-                      actionId: action.id,
-                    },
-                  })
+                  {
+                    setActionCount(prev=>prev-1)
+                    setSelectedActions(prev=>{
+                      return prev.filter(act=>act.id!==action.id)
+                    })
+                  }
                 }
               >
                 <MdDeleteForever />

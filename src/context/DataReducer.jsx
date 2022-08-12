@@ -77,7 +77,6 @@ export const DataReducer = (state, action) => {
       ];
     }
     case ACTIONS.DELETE_ACTION:{
-        console.log(action.payload.actionId)
         return [
           ...state.map((item)=>{
               if(item.id===action.payload.ruleId){

@@ -10,8 +10,6 @@ import "./rule.css";
 function AddRule() {
   const { isEdit, data, dataDispatch } = useData();
   const [selectedRule, setSelectedRule] = useState(data[0].id);
-  // const ruleNameRef = useRef(null);
-  console.log(isEdit);
   return (
     <div className="dashboard flex">
       <div className="sidebar">
