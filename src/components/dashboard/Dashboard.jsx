@@ -146,7 +146,7 @@ function Dashboard({ id }) {
         disabled={!isEdit}
         className="primary-btn"
         onClick={() =>
-          counterRef.current >= 5
+          selectedActions.length >= 5
             ? CallToast("error", "You Cannot add more than 5 actions")
             : addActions()
         }
